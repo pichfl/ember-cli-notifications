@@ -5,7 +5,8 @@
 
   --ecn-icon-width: 30px;
   --ecn-icon-position: 10px;
-  --ecn-icon-color: rgba(255, 255, 255, 0.74);
+  --ecn-icon-color: inherit;
+  --ecn-icon-opacity: 0.74;
   --ecn-icon-lighten-background: rgba(255, 255, 255, 0.2);
   --ecn-countdown-lighten-background: rgba(255, 255, 255, 0.4);
   --ecn-notification-max-height: 800px;
@@ -16,10 +17,24 @@
   --ecn-blue: #3ea2ff;
   --ecn-orange: #ff7f48;
   --ecn-red: #e74c3c;
+  --ecn-white: #fff;
+
+  /* Types */
+  --ecn-success-background: var(--ecn-green);
+  --ecn-info-background: var(--ecn-blue);
+  --ecn-warning-background: var(--ecn-orange);
+  --ecn-error-background: var(--ecn-red);
+  --ecn-success-text: var(--ecn-white);
+  --ecn-info-text: var(--ecn-white);
+  --ecn-warning-text: var(--ecn-white);
+  --ecn-error-text: var(--ecn-white);
 
   /* Spacing */
-  --ecn-spacing-1: .5rem;
+  --ecn-spacing-1: 0.5rem;
   --ecn-spacing-2: 1rem;
+
+  /* Shadow */
+  --ecn-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 /* Base */
