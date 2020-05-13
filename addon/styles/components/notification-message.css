@@ -8,9 +8,12 @@
   border-bottom: 1rem;
   color: white;
   max-height: var(--ecn-notification-max-height);
-  animation: notification-hide 250ms cubic-bezier(.33859, -.42, 1, -.22), notification-shrink 250ms 250ms cubic-bezier(.5, 0, 0, 1);
+  animation: notification-hide 250ms cubic-bezier(0.33859, -0.42, 1, -0.22),
+    notification-shrink 250ms 250ms cubic-bezier(0.5, 0, 0, 1);
   animation-fill-mode: forwards;
   margin-bottom: var(--ecn-spacing-2);
+  line-height: 1.5;
+  box-shadow: var(--ecn-shadow);
 }
 
 .ember-cli-notifications-notification__container .c-notification--clickable {
@@ -18,7 +21,7 @@
 }
 
 .ember-cli-notifications-notification__container .c-notification--in {
-  animation: notification-show 180ms cubic-bezier(.175, .885, .32, 1.27499);
+  animation: notification-show 180ms cubic-bezier(0.175, 0.885, 0.32, 1.27499);
 }
 
 .ember-cli-notifications-notification__container .c-notification__content {
@@ -42,20 +45,35 @@
   flex: none;
   background-color: var(--ecn-icon-lighten-background);
   width: var(--ecn-icon-width);
-  color: var(--ecn-icon-color);
+  color: var(--ecn-icon-color, inherit);
+  opacity: var(--ecn-icon-opacity, 1);
 }
 
 .ember-cli-notifications-notification__container .c-notification__svg {
-  width: 16px;
-  height: 16px;
-  vertical-align: text-top;
+  width: 1em;
+  height: 1em;
 }
 
 .ember-cli-notifications-notification__container .c-notification__close {
+  display: flex;
+  flex-flow: column;
   margin-left: var(--ecn-spacing-2);
-  align-self: flex-start;
-  opacity: .74;
+  padding: var(--ecn-spacing-1);
+  align-self: stretch;
+  opacity: 0.74;
   cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+  vertical-align: top;
+  font-size: 1em;
+  color: inherit;
+  line-height: inherit;
+}
+
+.ember-cli-notifications-notification__container .c-notification__close svg {
+  height: 1.5em;
 }
 
 .ember-cli-notifications-notification__container .c-notification__close:hover,
@@ -75,19 +93,23 @@
 
 /* Theme */
 .ember-cli-notifications-notification__container .c-notification--info {
-  background-color: var(--ecn-blue);
+  background-color: var(--ecn-info-background);
+  color: var(--ecn-info-text);
 }
 
 .ember-cli-notifications-notification__container .c-notification--success {
-  background-color: var(--ecn-green);
+  background-color: var(--ecn-success-background);
+  color: var(--ecn-success-text);
 }
 
 .ember-cli-notifications-notification__container .c-notification--warning {
-  background-color: var(--ecn-orange);
+  background-color: var(--ecn-warning-background);
+  color: var(--ecn-warning-text);
 }
 
 .ember-cli-notifications-notification__container .c-notification--error {
-  background-color: var(--ecn-red);
+  background-color: var(--ecn-error-background);
+  color: var(--ecn-error-text);
 }
 
 /* Keyframes */
@@ -95,11 +117,13 @@
   0% {
     opacity: 0;
     transform: perspective(450px) translate(0, -30px) rotateX(90deg);
+    box-shadow: 0 0 0;
   }
 
   100% {
     opacity: 1;
     transform: perspective(450px) translate(0, 0) rotateX(0deg);
+    box-shadow: var(--ecn-shadow);
   }
 }
 
@@ -107,13 +131,13 @@
   0% {
     opacity: 0;
     max-height: var(--ecn-notification-max-height);
-    transform: scale(.8);
+    transform: scale(0.8);
   }
 
   100% {
     opacity: 0;
     max-height: 0;
-    transform: scale(.8);
+    transform: scale(0.8);
   }
 }
 
@@ -125,7 +149,7 @@
 
   100% {
     opacity: 0;
-    transform: scale(.8);
+    transform: scale(0.8);
   }
 }
 
