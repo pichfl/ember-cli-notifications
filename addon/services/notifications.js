@@ -13,21 +13,23 @@ const globals = config['ember-cli-notifications'] || {}; // Import app config ob
 export default Service.extend({
   content: A(),
 
+  iconComponent: globals.iconComponent || 'notification-icon',
+
   // Method for adding a notification
   addNotification(options) {
     // If no message is set, throw an error
     if (!options.message) {
-      throw new Error("No notification message set");
+      throw new Error('No notification message set');
     }
 
     const notification = EmberObject.create({
       message: options.message,
       type: options.type || 'info',
-      autoClear: (isEmpty(options.autoClear) ? getWithDefault(globals, 'autoClear', false) : options.autoClear),
+      autoClear: isEmpty(options.autoClear) ? getWithDefault(globals, 'autoClear', false) : options.autoClear,
       clearDuration: options.clearDuration || getWithDefault(globals, 'clearDuration', 3200),
       onClick: options.onClick,
       htmlContent: options.htmlContent || false,
-      cssClasses: options.cssClasses
+      cssClasses: options.cssClasses,
     });
 
     this.content.pushObject(notification);
@@ -43,31 +45,51 @@ export default Service.extend({
 
   // Helper methods for each type of notification
   error(message, options) {
-    return this.addNotification(notificationAssign({
-      message: message,
-      type: 'error'
-    }, options));
+    return this.addNotification(
+      notificationAssign(
+        {
+          message: message,
+          type: 'error',
+        },
+        options
+      )
+    );
   },
 
   success(message, options) {
-    return this.addNotification(notificationAssign({
-      message: message,
-      type: 'success'
-    }, options));
+    return this.addNotification(
+      notificationAssign(
+        {
+          message: message,
+          type: 'success',
+        },
+        options
+      )
+    );
   },
 
   info(message, options) {
-    return this.addNotification(notificationAssign({
-      message: message,
-      type: 'info'
-    }, options));
+    return this.addNotification(
+      notificationAssign(
+        {
+          message: message,
+          type: 'info',
+        },
+        options
+      )
+    );
   },
 
   warning(message, options) {
-    return this.addNotification(notificationAssign({
-      message: message,
-      type: 'warning'
-    }, options));
+    return this.addNotification(
+      notificationAssign(
+        {
+          message: message,
+          type: 'warning',
+        },
+        options
+      )
+    );
   },
 
   removeNotification(notification) {
@@ -78,20 +100,28 @@ export default Service.extend({
     notification.set('dismiss', true);
 
     // Delay removal from DOM for dismissal animation
-    run.later(this, () => {
-      this.content.removeObject(notification);
-    }, 500);
+    run.later(
+      this,
+      () => {
+        this.content.removeObject(notification);
+      },
+      500
+    );
   },
 
   setupAutoClear(notification) {
     notification.set('startTime', Date.now());
 
-    const timer = run.later(this, () => {
-      // Hasn't been closed manually
-      if (this.content.indexOf(notification) >= 0) {
+    const timer = run.later(
+      this,
+      () => {
+        // Hasn't been closed manually
+        if (this.content.indexOf(notification) >= 0) {
           this.removeNotification(notification);
-      }
-    }, notification.get('remaining'));
+        }
+      },
+      notification.get('remaining')
+    );
 
     notification.set('timer', timer);
   },
@@ -106,7 +136,7 @@ export default Service.extend({
   },
 
   clearAll() {
-    this.get('content').forEach(notification => {
+    this.get('content').forEach((notification) => {
       this.removeNotification(notification);
     });
 
@@ -119,5 +149,5 @@ export default Service.extend({
 
   setDefaultClearDuration(clearDuration) {
     set(globals, 'clearDuration', clearDuration);
-  }
+  },
 });
